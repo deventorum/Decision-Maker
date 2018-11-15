@@ -4,7 +4,7 @@ function newOption () {
   if (arg < 9) {
     const $optionElement = $(
       `<label for='option${arg}' class='visuallyhidden'>Option${arg}</label>
-      <input type='text' name='option${arg}' placeholder='Enter option ${arg}'>`
+      <input type='text' name='option${arg}' class='option' placeholder='Enter option ${arg}'>`
     )
     $('.option-list').append($optionElement);
     $(`input[name='option${arg}']`).get(0).scrollIntoView();
@@ -23,16 +23,6 @@ function deleteOption () {
 }
 
 $(document).ready(function () {
-  $.ajax({
-    method: "GET",
-    url: "/api/users"
-  }).done((users) => {
-    for(user of users) {
-      $("<div>").text(user.name).appendTo($("main .wrapper section"));
-    }
-  });
-
-
   // Opens a new poll menu
   $('#toggle-form').on('click', function() {
     $('.new-poll').slideToggle();
@@ -47,7 +37,6 @@ $(document).ready(function () {
   $('#remove-option').on('click', function(event) {
     event.preventDefault();
     deleteOption();
-  }) 
-
+  })
 
 });
