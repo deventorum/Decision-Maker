@@ -3,15 +3,10 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (knex) => {
+module.exports = (dataHelpers) => {
 
   router.get("/", (req, res) => {
-    knex
-      .select("*")
-      .from("voters")
-      .then((results) => {
-        res.json(results);
-    });
+    res.send("hello");
   });
 
   return router;

@@ -15,7 +15,8 @@ const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
 // Seperated Routes for each Resource
-const usersRoutes = require("./routes/users");
+const dataHelpers = require("./data-helpers")(knex);
+const usersRoutes = require("./routes/users")(dataHelpers);
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -36,7 +37,8 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use("/api/users", usersRoutes(knex));
+app.use("/", usersRoutes);
+
 
 // Home page
 app.get("/", (req, res) => {
@@ -46,6 +48,7 @@ app.post('/polls', (req, res) => {
   console.log(req.body);
   res.render("admin")
 });
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
