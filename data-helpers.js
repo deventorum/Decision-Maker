@@ -30,10 +30,8 @@ module.exports = function makeDataHelpers(db) { //db is knex
         })
         // .then is essential (must have for this to work) 
         .then();
-    }
-  }
+    },
   
-  return {
 
     getPolls: function(callback) {
        db.select('created_at').from('polls')
@@ -74,8 +72,7 @@ module.exports = function makeDataHelpers(db) { //db is knex
        });
 
     }
-  };
-
+  }
   // .createTable('options', function (table) {
   //   table.increments('id').unsigned().primary();
   //   table.string('name');
