@@ -25,11 +25,19 @@ module.exports = function makeDataHelpers(db) { //db is knex
 
     saveOptions: function (pollOptions) {
       return db('options').insert({
-        name: pollOptions.name,
-        poll_id: pollOptions.poll_id
-      })
+          name: pollOptions.name,
+          poll_id: pollOptions.poll_id
+        })
+        // .then is essential (must have for this to work) 
+        .then();
     }
   }
+
+  // .createTable('options', function (table) {
+  //   table.increments('id').unsigned().primary();
+  //   table.string('name');
+  //   table.integer('poll_id').references('id').inTable('polls');
+  // })
 
 }
 

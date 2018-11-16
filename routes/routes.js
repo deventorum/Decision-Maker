@@ -7,12 +7,12 @@ const router = express.Router();
 module.exports = (dataHelpers) => {
 
   router.get("/", (req, res) => {
-    res.send("hello");
+    res.render("index");
   });
 
   router.get(`/:poll_id/admin/:admin_token`, (req, res) => {
     console.log(req.params.poll_id, req.params.admin_token)
-    res.send("hello");
+    res.render("admin");
   });
 
   router.post("/polls", (req, res) => {
@@ -26,7 +26,10 @@ module.exports = (dataHelpers) => {
         (info) => {
           // console.log(info)
           const optionsArr = Object.values(req.body);
+          console.log(optionsArr);
+          console.log(info.poll_id);
           for (let i = 3; i < optionsArr.length; i++) {
+            console.log(optionsArr[i]);
             dataHelpers.saveOptions({
               poll_id: info.poll_id,
               name: optionsArr[i]
