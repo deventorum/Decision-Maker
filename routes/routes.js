@@ -6,9 +6,9 @@ const router = express.Router();
 // this is where we will use the functions from dsatahelpers based on which route requires them.
 module.exports = (dataHelpers) => {
 
-  router.get("/", (req, res) => {
-    res.render("index");
-  });
+        router.get("/", (req, res) => {
+          res.render("index");
+        });
 
   router.get(`/:poll_id/admin/:admin_token`, (req, res) => {
     console.log(req.params.poll_id, req.params.admin_token)
@@ -40,9 +40,8 @@ module.exports = (dataHelpers) => {
 
 
   })
-const router  = express.Router();
 
-module.exports = (dataHelpers) => {
+
 
   router.get("/poll/:poll_id/:voter_token", (req, res) => {
     dataHelpers.getOptions(
