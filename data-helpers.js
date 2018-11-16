@@ -4,24 +4,44 @@
 module.exports = function makeDataHelpers(db) {
   return {
 
-    // Saves a tweet to `db`
-   savePoll: function(newTweet, callback) {
-      db.collection("tweets").insertOne(newTweet, (err, result) => {
-      if (err) {
-        return callback(err);
-      }
-      callback(null, true);
-      });
+    getPolls: function(callback) {
+       db.select('created_at').from('polls')
+       .where('id', '=', 1)
+       .asCallback(function(err, result) {
+          if (err) callback(err);
+          callback(null,result);
+       });
     },
 
-    // Get all tweets in `db`, sorted by newest first
-    getTweets: function(callback) {
-       db.collection("tweets").find().toArray((err, tweets) => {
-      if (err) {
-        return callback(err);
-       }
-        callback(null, tweets);
-      });
+
+    getOptions: function(callback) {
+       db.select('name').from('options')
+       .where('poll_id', '=', 1)
+       .asCallback(function(err, result) {
+          if (err) callback(err);
+          callback(null,result);
+       });
+    },
+
+      saveVotes: function(callback) {
+       db.insert('*').from('votes')
+       .where('id', '=', 1)
+       .asCallback(function(err, result) {
+          if (err) callback(err);
+          callback(null,result);
+       });
+    },
+
+
+      getResults: function(callback) {
+       db.select('name').from('options')
+       .where('poll_id', '=', 1).join('votes', 'options.id', '=', 'votes.option_id')
+       .select('rate')
+       .asCallback(function(err, result) {
+          if (err) callback(err);
+          callback(null,result);
+       });
+
     }
   };
 }
