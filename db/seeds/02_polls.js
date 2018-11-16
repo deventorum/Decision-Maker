@@ -7,12 +7,14 @@ exports.seed = function(knex, Promise) {
         knex('polls').insert({ id: 1,
                             title: 'What to eat for lunch',
                             description: 'Cant decide what to have for lunch',
-                            admin_token: 'erik-test-hungry'
+                            admin_token: 'erik-test-hungry',
+                            owner_id: 1
                           }),
         knex('polls').insert({ id: 2,
                             title: 'What color palette',
                             description: 'Cant decide what color',
-                            admin_token: 'color-picker'
+                            admin_token: 'color-picker',
+                            owner_id: 2
                           }),
       ]);
     });

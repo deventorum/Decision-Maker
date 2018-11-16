@@ -6,6 +6,8 @@ const md5 = require('md5');
 module.exports = function makeDataHelpers(db) { //db is knex
   return {
 
+    //main page saves the poll info
+
     // switch to knex (knex uses promises rather than callbacks)
     savePoll: function (pollInfoObj) {
       const admin_token = md5(pollInfoObj.email)
@@ -24,12 +26,14 @@ module.exports = function makeDataHelpers(db) { //db is knex
         }))
     },
 
+
+
     saveOptions: function (pollOptions) {
       return db('options').insert({
           name: pollOptions.name,
           poll_id: pollOptions.poll_id
         })
-        // .then is essential (must have for this to work) 
+        // .then is essential (must have for this to work)
         .then();
     },
 
@@ -40,21 +44,13 @@ module.exports = function makeDataHelpers(db) { //db is knex
           email: voterInfoObj.email
         })
         .returning('id')
+        .catch(err => console.log(err))
         .then(ids => ({
           voter_id: ids[0]
         }))
     },
 
-
-
-
-
-
-
-
-
-
-
+    //???? test maybe?
     getPolls: function (callback) {
       db.select('created_at').from('polls')
         .where('id', '=', 1)
@@ -64,9 +60,9 @@ module.exports = function makeDataHelpers(db) { //db is knex
         });
     },
 
-
+    //the votes page to show options and save votes
     getOptions: function (callback) {
-      db.select('name').from('options')
+      return db.select('name').from('options')
         .where('poll_id', '=', 1)
         .asCallback(function (err, result) {
           if (err) callback(err);
@@ -75,7 +71,7 @@ module.exports = function makeDataHelpers(db) { //db is knex
     },
 
     saveVotes: function (callback) {
-      db.insert('*').from('votes')
+      return db('votes').insert({})
         .where('id', '=', 1)
         .asCallback(function (err, result) {
           if (err) callback(err);
@@ -83,7 +79,7 @@ module.exports = function makeDataHelpers(db) { //db is knex
         });
     },
 
-
+    //for the stats page
     getResults: function (callback) {
       db.select('name').from('options')
         .where('poll_id', '=', 1).join('votes', 'options.id', '=', 'votes.option_id')
