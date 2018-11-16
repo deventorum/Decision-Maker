@@ -13,6 +13,7 @@ module.exports = function makeDataHelpers(db) { //db is knex
           title: pollInfoObj.title,
           description: pollInfoObj.description,
           admin_token: admin_token,
+          owner_id: pollInfoObj.owner_id
           // don't need email as it's not relevant
         })
         // this returns the poll_id and admin_token
@@ -31,72 +32,68 @@ module.exports = function makeDataHelpers(db) { //db is knex
         // .then is essential (must have for this to work) 
         .then();
     },
-  
 
-    getPolls: function(callback) {
-       db.select('created_at').from('polls')
-       .where('id', '=', 1)
-       .asCallback(function(err, result) {
-          if (err) callback(err);
-          callback(null,result);
-       });
+    saveVoter: function (voterInfoObj) {
+      const voter_token = md5(voterInfoObj.email)
+      return db('voters').insert({
+          voter_token: voter_token,
+          email: voterInfoObj.email
+        })
+        .returning('id')
+        .then(ids => ({
+          voter_id: ids[0]
+        }))
     },
 
 
-    getOptions: function(callback) {
-       db.select('name').from('options')
-       .where('poll_id', '=', 1)
-       .asCallback(function(err, result) {
+
+
+
+
+
+
+
+
+
+    getPolls: function (callback) {
+      db.select('created_at').from('polls')
+        .where('id', '=', 1)
+        .asCallback(function (err, result) {
           if (err) callback(err);
-          callback(null,result);
-       });
+          callback(null, result);
+        });
     },
 
-      saveVotes: function(callback) {
-       db.insert('*').from('votes')
-       .where('id', '=', 1)
-       .asCallback(function(err, result) {
+
+    getOptions: function (callback) {
+      db.select('name').from('options')
+        .where('poll_id', '=', 1)
+        .asCallback(function (err, result) {
           if (err) callback(err);
-          callback(null,result);
-       });
+          callback(null, result);
+        });
+    },
+
+    saveVotes: function (callback) {
+      db.insert('*').from('votes')
+        .where('id', '=', 1)
+        .asCallback(function (err, result) {
+          if (err) callback(err);
+          callback(null, result);
+        });
     },
 
 
-      getResults: function(callback) {
-       db.select('name').from('options')
-       .where('poll_id', '=', 1).join('votes', 'options.id', '=', 'votes.option_id')
-       .select('rate')
-       .asCallback(function(err, result) {
+    getResults: function (callback) {
+      db.select('name').from('options')
+        .where('poll_id', '=', 1).join('votes', 'options.id', '=', 'votes.option_id')
+        .select('rate')
+        .asCallback(function (err, result) {
           if (err) callback(err);
-          callback(null,result);
-       });
+          callback(null, result);
+        });
 
     }
   }
-  // .createTable('options', function (table) {
-  //   table.increments('id').unsigned().primary();
-  //   table.string('name');
-  //   table.integer('poll_id').references('id').inTable('polls');
-  // })
 
 }
-
-
-
-
-
-
-// }
-
-
-// saveOptions: function (pollOptions) {
-//   console.log(pollOptions.name);
-//   const pollOptionsArr = JSON.parse(pollOptions.name);
-
-//   pollOptionsArr.options.forEach(option => {
-//     db('options').insert({
-//       name: option,
-//       poll_id: pollOptions.poll_id
-//     })
-//   })
-// }
