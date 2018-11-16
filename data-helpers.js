@@ -28,12 +28,10 @@ module.exports = function makeDataHelpers(db) { //db is knex
           name: pollOptions.name,
           poll_id: pollOptions.poll_id
         })
-        // .then is essential (must have for this to work) 
+        // .then is essential (must have for this to work)
         .then();
-    }
-  }
-  
-  return {
+    },
+
 
     getPolls: function(callback) {
        db.select('created_at').from('polls')
@@ -75,13 +73,6 @@ module.exports = function makeDataHelpers(db) { //db is knex
 
     }
   };
-
-  // .createTable('options', function (table) {
-  //   table.increments('id').unsigned().primary();
-  //   table.string('name');
-  //   table.integer('poll_id').references('id').inTable('polls');
-  // })
-
 }
 
 
