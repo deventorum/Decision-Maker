@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
       table.string ('description');
       table.string('admin_token');
       table.timestamp('created_at').defaultTo(knex.fn.now());
+
   })
 
     .createTable('voters', function (table) {
