@@ -44,14 +44,14 @@ app.use(express.static("public"));
 app.use("/", routes);
 
 
-// Home page
-app.get("/", (req, res) => {
-  res.render("index");
-});
-app.post('/polls', (req, res) => {
-  console.log(req.body);
-  res.render("admin")
-});
+// Home page/???
+// app.get("/", (req, res) => {
+//   res.render("index");
+// });
+// app.post('/polls', (req, res) => {
+//   console.log(req.body);
+//   res.render("admin")
+// });
 
 
 app.listen(PORT, () => {
