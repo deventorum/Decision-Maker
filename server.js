@@ -44,6 +44,7 @@ app.get("/", (req, res) => {
 });
 app.post('/polls', (req, res) => {
   console.log(req.body);
+  res.render("admin")
 });
 
 app.listen(PORT, () => {
