@@ -1,0 +1,34 @@
+<main>
+  <div class='wrapper'>
+   <a href='#' id='toggle-form' class='poll-button'>Create New Poll</a>
+    <div class='main'>
+      <section class='new-poll'>
+        <form class='create-poll' action='/polls' method='POST'>
+          <label for='email' class='visuallyhidden'>Your Email</label>
+          <input id='email' type='email' name='email' placeholder="Enter your email address" required>
+
+          <label for='title' class='visuallyhidden'>Title</label>
+          <input type='text' name='title' placeholder='Enter Poll Title' required>
+
+          <label for='description' class='visuallyhidden'>Description</label>
+          <textarea name="description" placeholder="Poll description (optional)"></textarea>
+
+          <div class='option-list'>
+            <h2>Enter Poll Options</h2>
+            <label for='option1' class='visuallyhidden'>Option1</label>
+            <input type='text' name='option1' class='option' placeholder='Enter option 1' required>
+
+            <label for='option2' class='visuallyhidden'>Option1</label>
+            <input type='text' name='option2' class='option' placeholder='Enter option 2' required>
+          </div> 
+          
+          <div class='button-panel'>
+            <a href='#' id='add-option' class='option-button'>Add Option</a>
+            <a href='#' id='remove-option' class='option-button'>Remove Option</a>
+            <button class="submit-poll poll-button">Submit Poll</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</main>
