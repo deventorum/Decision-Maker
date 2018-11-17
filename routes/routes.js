@@ -113,16 +113,6 @@ module.exports = (dataHelpers) => {
     dataHelpers.saveVotes({
       option: rate
     })
-
-    //   function (err, result)
-    //   {
-    //     if (err) {
-    //       res.status(500).json({ error: err.message });
-    //     } else {
-    //       res.json(result);
-    //     }
-    //   }
-    // );
   });
 
 
