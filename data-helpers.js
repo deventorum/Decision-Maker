@@ -60,12 +60,15 @@ module.exports = function makeDataHelpers(db) { //db is knex
         });
     },
 
+
+
     // ALISA'S WORK  fdshjklfdsajkfhdsdjkafhdsjklahfkdjlsahfjkdahjkfdhajkfhdadjkslhfdjksahfjkdashjkfdhadkls
     //???? test maybe?
 
-    getPolls: function (callback) {
-      db.select('created_at').from('polls')
-        .where('id', '=', 1)
+    getPollInfo: function (poll_id, callback) {
+      db.select('title', 'description').from('polls')
+        .where('id', '=', poll_id).join('voters', 'polls.owner_id', '=', 'voters.id')
+        .select('email')
         .asCallback(function (err, result) {
           if (err) callback(err);
           callback(null, result);

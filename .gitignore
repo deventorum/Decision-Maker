@@ -3,5 +3,7 @@ public/styles/partials
 public/styles/layout.css.map
 public/styles/layout.scss
 .env
+app.env
 *.log
 *.sqlite3
+
