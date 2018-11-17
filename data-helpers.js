@@ -60,7 +60,7 @@ module.exports = function makeDataHelpers(db) { //db is knex
         });
     },
 
-    // ALISA'S WORK  fdshjklfdsajkfhdsdjkafhdsjklahfkdjlsahfjkdahjkfdhajkfhdadjkslhfdjksahfjkdashjkfdhadkls
+    // ALISA'S WORK  fdshjklfdsajkfhdsdjkafhdsjklahfkdjlsahfjkdahjkfdhajkfhdadjkslhfdjksahfjkdaashjkfdhadkls
     //???? test maybe?
 
     getPolls: function (callback) {

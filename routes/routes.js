@@ -94,6 +94,20 @@ module.exports = (dataHelpers) => {
   });
 
   router.get("/poll/:poll_id/:voter_token", (req, res) => {
+    dataHelpers.getOptions(req.params.admin_token, (err, result) => {
+      if (err) {
+        //res.render('error');
+        return
+      } else {
+        let templateVars = {
+          voter_token: result,
+          poll_id: req.params.poll_id
+        }
+        console.log(templateVars)
+        res.render("vote", templateVars);
+      }
+    })
+  });
     res.render("vote");
     //   function (err, result)
     //   {
