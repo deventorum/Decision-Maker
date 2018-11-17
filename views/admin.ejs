@@ -3,21 +3,34 @@
 
 <head>
   <% include partials/_head %>
-  <script type="text/javascript" src="/scripts/admin.js"></script>
+
+  <script type='text/javascript' src='/scripts/admin.js'></script>
 </head>
 
 <body>
 
   <% include partials/_header %>
 
+
   <main>
     <div class='wrapper'>
       <div class='main'>
-        <section class='friends-invites'>
-          <h2>
-            <%= JSON.stringify(voter_token) %>
-          </h2>
+        <section class='friend-invites'>
+          <h2>Invite Friends</h2>
+          <form class='invite-form' action="" ` method='POST'>
+            <label for='email' class='visuallyhidden'>Your Email</label>
+            <input id='email' type='email' name='email' placeholder="Enter your email address" required>
+            <button id='send-invite' type='submit'>Invite</button>
+          </form>
+          <div class='invites-status'>
+
+          </div>
         </section>
+        <section class='button-panel'>
+          <a href='/poll/<%= poll_id %>' class='option-button'>Check results</a>
+          <a href='/poll/<%= poll_id %>/<%= voter_token %>' class='option-button'>Vote</a>
+        </section>
+
       </div>
     </div>
   </main>

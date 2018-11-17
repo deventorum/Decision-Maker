@@ -59,21 +59,22 @@ module.exports = function makeDataHelpers(db) { //db is knex
           callback(null, result);
         });
     },
-
-
-
-    // ALISA'S WORK  fdshjklfdsajkfhdsdjkafhdsjklahfkdjlsahfjkdahjkfdhajkfhdadjkslhfdjksahfjkdashjkfdhadkls
-    //???? test maybe?
-
+    // USE THIS STRUCTURE FOR ANYTHING IN THE FUTURE!
+    // USE THIS STRUCTURE FOR ANYTHING IN THE FUTURE!
+    // USE THIS STRUCTURE FOR ANYTHING IN THE FUTURE! (BELOW getPollInfo)
     getPollInfo: function (poll_id, callback) {
-      db.select('title', 'description').from('polls')
-        .where('id', '=', poll_id).join('voters', 'polls.owner_id', '=', 'voters.id')
-        .select('email')
+      db.select('title', 'description', 'voters.email').from('polls')
+        .join('voters', 'polls.owner_id', '=', 'voters.id')
+        .where('polls.id', '=', poll_id)
         .asCallback(function (err, result) {
+          console.log('this is the result inside the getPollINfo: ', result) // test line 
           if (err) callback(err);
           callback(null, result);
         });
     },
+
+    // ALISA'S WORK  fdshjklfdsajkfhdsdjkafhdsjklahfkdjlsahfjkdahjkfdhajkfhdadjkslhfdjksahfjkdashjkfdhadkls
+    //???? test maybe?
 
     //the votes page to show options and save votes
     getOptions: function (callback) {
