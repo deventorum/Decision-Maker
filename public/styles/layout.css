@@ -285,10 +285,19 @@ p {
   margin: 0;
 }
 
+h2 {
+  margin: 20px;
+  color: #118c8b;
+}
+
 img {
   width: 100%;
   max-width: 100%;
   display: block;
+}
+
+ul {
+  padding: 0;
 }
 
 section {
@@ -377,7 +386,7 @@ main .wrapper {
   padding: 20px;
 }
 
-.poll-button {
+.poll-button, #vote {
   border: none;
   color: #000d29;
   background-color: #f2746b;
@@ -395,7 +404,7 @@ main .wrapper {
   border: 2px solid #118c8b;
 }
 
-.poll-button:hover {
+.poll-button:hover, #vote:hover {
   background-color: #f14d49;
   -webkit-transition: all linear 0.5s;
   transition: all linear 0.5s;
@@ -605,11 +614,6 @@ footer {
   color: #118c8b;
 }
 
-.friend-invites h2 {
-  margin: 20px;
-  color: #118c8b;
-}
-
 .invite-form {
   min-width: 300px;
   padding: 0 20px;
@@ -672,5 +676,55 @@ footer {
   transition: all linear 0.5s;
   border: 2px solid #000d29;
   font-weight: 700;
+}
+
+.sortable {
+  min-width: 300px;
+  padding: 0;
+  width: 50%;
+  max-width: 600px;
+  height: auto;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.sortable li {
+  padding: 20px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background-color: #118c8b;
+  counter-increment: step-counter;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.sortable li::before {
+  content: counter(step-counter);
+  margin-right: 5px;
+  font-size: 100%;
+  background-color: #118c8b;
+  color: #000d29;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 3px;
+}
+
+.sortable li:hover {
+  background-color: rgba(242, 116, 107, 0.75);
+  -webkit-transition: all linear 0.25s;
+  transition: all linear 0.25s;
+}
+
+.sortable li:hover::before {
+  background-color: rgba(242, 116, 107, 0.75);
+  -webkit-transition: all linear 0.25s;
+  transition: all linear 0.25s;
+}
+
+#options {
+  padding: 10px;
+  text-align: center;
 }
 /*# sourceMappingURL=layout.css.map */

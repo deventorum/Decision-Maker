@@ -90,6 +90,15 @@ module.exports = (dataHelpers) => {
   }
    res.render("vote", templateVars);
   });
+
+  router.post("/poll/:poll_id/:voter_token/vote", (req,res) => {
+    console.log(req.body);
+    res.status(200)
+  })
+
+  router.get("/poll/:poll_id", (req,res) => {
+    res.render('result');
+  })
   // TESTING FOR VOTERS PAGE (DENIS) END
 
 

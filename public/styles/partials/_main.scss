@@ -1,3 +1,4 @@
+// LANDING PAGE AND GENERAL SETTINGS (START)
 main .wrapper {
   flex-direction: column;
   padding: 20px;
@@ -86,7 +87,9 @@ footer {
   border-top: $border-blue;
   border-bottom: $border-blue;
 }
+// LANDING PAGE AND GENERAL SETTINGS (END)
 
+// ADMIN PAGE (START)
 .friend-invites {
   min-height: 25vh;
   padding: 20px 0;
@@ -106,11 +109,6 @@ footer {
     &::placeholder {
       color: $blue;
     }
-  }
-
-  h2 {
-    margin: 20px;
-    color: $blue;
   }
 }
 
@@ -144,3 +142,52 @@ footer {
   border: 2px solid $black;
   height: 50px;
 }
+// ADMIN PAGE (END)
+
+// VOTERS PAGE (START)
+.sortable {
+  @include formElement(0, auto, center);
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  li {
+    padding: 20px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background-color: $blue;
+    counter-increment: step-counter;
+    margin-bottom: 10px;
+    border-radius: $small-radius;
+
+    &::before {
+      content: counter(step-counter);
+      margin-right: 5px;
+      font-size: 100%;
+      background-color: $blue;
+      color: $black;
+      font-weight: bold;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    &:hover {
+      background-color: $pink-trans;
+      transition: $trans-slow;
+
+      &::before {
+        background-color: $pink-trans;
+        transition: $trans-slow;
+      }
+    }
+  }
+}
+#options {
+  padding: 10px;
+  text-align: center;
+}
+#vote {
+  @extend .poll-button;
+}
+
+// VOTERS PAGE (END)

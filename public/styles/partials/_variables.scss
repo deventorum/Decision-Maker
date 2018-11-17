@@ -2,6 +2,7 @@
 
 $black: #000d29;
 $blue: #118c8b;
+$blue-trans: rgba(17, 140, 139, 0.75);
 $brown: #bca18d;
 $brown-trans: rgba(188, 161, 141, 0.75);
 $pink: #f2746b;
@@ -10,6 +11,7 @@ $red: #f14d49;
 
 /* TRANSITION */
 $trans: all linear 0.5s;
+$trans-slow: all linear 0.25s;
 
 /* BORDER RADIUS */
 $small-radius: 10px;

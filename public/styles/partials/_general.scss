@@ -16,12 +16,18 @@ h4,
 p {
   margin: 0;
 }
+h2 {
+  margin: 20px;
+  color: $blue;
+}
 img {
   width: 100%;
   max-width: 100%;
   display: block;
 }
-
+ul {
+  padding: 0;
+}
 section {
   width: 100%;
 }

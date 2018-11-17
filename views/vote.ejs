@@ -16,20 +16,14 @@
       <div class='wrapper'>
         <div class='main'>
           <h2>Sort your options</h2>
-          <nav class='options'>
-            <ul class='sortable'>
+          <nav id='options'>
+            <ol class='sortable connect'>
               <% options.forEach( (item,index) => { %>
               <li id='<%= index %>'><%= item %></li>
               <% }) %>
-            </ul>  
+            </ol> 
+          <button id='vote'>Submit</button>
           </nav>
-          <nav>
-          
-          </nav>
-          <section class='button-panel'>
-            <button>Submit Your choice</button>
-          </section>
-
         </div>
       </div>
     </main>
