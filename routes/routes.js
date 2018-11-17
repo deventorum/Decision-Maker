@@ -54,8 +54,8 @@ module.exports = (dataHelpers) => {
   })
 
 
-
-  router.get("/poll/:poll_id/:voter_token", (req, res) => {
+  // Temporary disabled
+  /* router.get("/poll/:poll_id/:voter_token", (req, res) => {
     dataHelpers.getOptions(
       function (err, result)
       {
@@ -66,7 +66,7 @@ module.exports = (dataHelpers) => {
         }
       }
     );
-  });
+  }); */
 
 
   router.get("/poll/:poll_id", (req, res) => {
@@ -81,6 +81,25 @@ module.exports = (dataHelpers) => {
       }
     );
   });
+
+  // TESTING FOR VOTERS PAGE (DENIS) START
+  router.get("/poll/:poll_id/:voter_token", (req, res) => {
+  const templateVars = {
+    poll_id: req.params.poll_id,
+    options: ["Pizza", "Sushi", "Cake", "Steak"]
+  }
+   res.render("vote", templateVars);
+  });
+
+  router.post("/poll/:poll_id/:voter_token/vote", (req,res) => {
+    console.log(req.body);
+    res.status(200)
+  })
+
+  router.get("/poll/:poll_id", (req,res) => {
+    res.render('result');
+  })
+  // TESTING FOR VOTERS PAGE (DENIS) END
 
 
 // admin.ejs   /poll/:polld_id/admin/admin_token
