@@ -627,6 +627,10 @@ footer {
       flex-wrap: wrap;
 }
 
+.invite-form input {
+  margin: 5px;
+}
+
 .invites-status {
   text-align: center;
 }

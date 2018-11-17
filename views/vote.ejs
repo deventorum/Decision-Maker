@@ -3,7 +3,9 @@
   
   <head>
   <% include partials/_head %>
-  <script type='text/javascript' src='/scripts/admin.js'></script>
+  <script type='text/javascript' src='/scripts/vote.js'></script>
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
   </head>
 
   <body>
@@ -13,20 +15,19 @@
     <main>
       <div class='wrapper'>
         <div class='main'>
-          <section class='friend-invites'>
-            <h2>Invite Friends</h2>
-            <form class='invite-form' action=""` method='POST'>
-              <label for='email' class='visuallyhidden'>Your Email</label>
-              <input id='email' type='email' name='email' placeholder="Enter your email address" required>
-              <button id='send-invite' type='submit'>Invite</button>
-            </form>
-            <div class='invites-status'>
-
-            </div>
-          </section>
+          <h2>Sort your options</h2>
+          <nav class='options'>
+            <ul class='sortable'>
+              <% options.forEach( (item,index) => { %>
+              <li id='<%= index %>'><%= item %></li>
+              <% }) %>
+            </ul>  
+          </nav>
+          <nav>
+          
+          </nav>
           <section class='button-panel'>
-            <a href='/poll/<%= poll_id %>' class='option-button'>Check results</a>
-            <a href='/poll/<%= poll_id %>/<%= voter_token %>' class='option-button'>Vote</a>
+            <button>Submit Your choice</button>
           </section>
 
         </div>
