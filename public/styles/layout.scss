@@ -1,0 +1,8 @@
+@import 'partials/setup'; // Normalize, border-box, clearfix and visuallyhidden settings are added in partials setup file
+@import 'partials/variables';
+@import 'partials/typography';
+@import 'partials/mixins';
+@import 'partials/general';
+@import 'partials/header';
+@import 'partials/main';
+@import 'partials/media-queries';

@@ -1,0 +1,193 @@
+// LANDING PAGE AND GENERAL SETTINGS (START)
+main .wrapper {
+  flex-direction: column;
+  padding: 20px;
+}
+.main {
+  margin-top: 20px;
+  background-color: $brown-trans;
+  border-radius: $std-radius;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  h2 {
+    color: $black;
+  }
+}
+.new-poll {
+  display: none;
+  padding: 20px;
+}
+
+.poll-button {
+  @include buttonType($black, $red, $pink, 15px);
+  border: 2px solid $blue;
+}
+.create-poll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  input {
+    @include formElement(0 20px, 50px, center);
+    margin: 10px 0;
+    color: $black;
+
+    &::placeholder {
+      color: $blue;
+      text-align: center;
+    }
+  }
+
+  textarea {
+    @include formElement(0 20px, 150px, left);
+    padding-top: 10px;
+
+    &::placeholder {
+      color: $blue;
+      text-align: center;
+    }
+  }
+}
+
+.button-panel {
+  @include formElement(20px, auto, center);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.option-button {
+  @include buttonType($black, $blue, $brown, 15px);
+  border: 2px solid $blue;
+
+  &:hover {
+    background-color: $blue;
+    transition: $trans;
+  }
+}
+
+.option-list {
+  @include formElement(0, auto, center);
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  input {
+    width: 100%;
+  }
+}
+
+footer {
+  background-color: $pink-trans;
+  padding: 20px;
+  border-top: $border-blue;
+  border-bottom: $border-blue;
+}
+// LANDING PAGE AND GENERAL SETTINGS (END)
+
+// ADMIN PAGE (START)
+.friend-invites {
+  min-height: 25vh;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  input {
+    @include formElement(0 20px, 50px, center);
+    border: 2px solid $blue;
+    color: $blue;
+
+    &:hover {
+      border: 2px solid $black;
+    }
+    &::placeholder {
+      color: $blue;
+    }
+  }
+}
+
+.invite-form {
+  @include formElement(0 20px, auto, center);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  input {
+    margin: 5px;
+  }
+}
+.invites-status {
+  text-align: center;
+
+  p {
+    padding: 10px;
+    color: $blue;
+  }
+  h3 {
+    margin-top: 10px;
+    padding: 10px;
+    color: $black;
+  }
+}
+
+#send-invite {
+  @include buttonType($black, $pink, $blue, 15px);
+  border-radius: 0;
+  border: 2px solid $black;
+  height: 50px;
+}
+// ADMIN PAGE (END)
+
+// VOTERS PAGE (START)
+.sortable {
+  @include formElement(0, auto, center);
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  li {
+    padding: 20px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background-color: $blue;
+    counter-increment: step-counter;
+    margin-bottom: 10px;
+    border-radius: $small-radius;
+
+    &::before {
+      content: counter(step-counter);
+      margin-right: 5px;
+      font-size: 100%;
+      background-color: $blue;
+      color: $black;
+      font-weight: bold;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    &:hover {
+      background-color: $pink-trans;
+      transition: $trans-slow;
+
+      &::before {
+        background-color: $pink-trans;
+        transition: $trans-slow;
+      }
+    }
+  }
+}
+#options {
+  padding: 10px;
+  text-align: center;
+}
+#vote {
+  @extend .poll-button;
+}
+
+// VOTERS PAGE (END)

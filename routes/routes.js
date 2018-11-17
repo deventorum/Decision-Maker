@@ -67,8 +67,6 @@ module.exports = (dataHelpers) => {
       .then();
   });
 
-
-
   router.get("/poll/:poll_id/:voter_token", (req, res) => {
     dataHelpers.getOptions(req.params.poll_id, (err, result) => {
       if (err) {
@@ -84,8 +82,6 @@ module.exports = (dataHelpers) => {
           poll_id: req.params.poll_id,
           options: optionsArr
         }
-        res.render("vote", templateVars);
-      }
     })
   });
 
@@ -129,6 +125,5 @@ module.exports = (dataHelpers) => {
       }
     );
   });
-
   return router;
 }

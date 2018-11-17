@@ -1,0 +1,32 @@
+@mixin buttonType($color, $color-2, $background-color, $padding) {
+  border: none;
+  color: $color;
+  background-color: $background-color;
+  font-size: 1rem;
+  padding: $padding;
+  display: inline-block;
+  border-radius: $std-radius;
+  max-height: 50px;
+  margin: 5px;
+  font-style: normal;
+  font-weight: 400;
+  font-family: $font;
+  text-align: center;
+  width: 175px;
+
+  &:hover {
+    background-color: $color-2;
+    transition: $trans;
+    border: 2px solid $black;
+    font-weight: 700;
+  }
+}
+
+@mixin formElement($padding, $height, $align) {
+  min-width: 300px;
+  padding: $padding;
+  width: 50%;
+  max-width: 600px;
+  height: $height;
+  text-align: $align;
+}
