@@ -84,6 +84,7 @@ module.exports = (dataHelpers) => {
           poll_id: req.params.poll_id,
           options: optionsArr
         }
+        console.log(templateVars)
         res.render("vote", templateVars);
       }
     })
