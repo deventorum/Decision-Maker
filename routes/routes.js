@@ -17,8 +17,9 @@ module.exports = (dataHelpers) => {
         //res.render('error');
         return
       } else {
+        console.log(result);
         let templateVars = {
-          voter_token: result,
+          voter_token: result[0].voter_token,
           poll_id: req.params.poll_id
         }
         console.log(templateVars)
