@@ -17,8 +17,8 @@ module.exports = (dataHelpers) => {
         email: req.body.email
       })
       .then((info) => {
-        console.log("saving poll")
-        console.log(info)
+        // console.log("saving poll")
+        // console.log(info)
         dataHelpers.savePoll({
           title: req.body.title,
           email: req.body.email,
@@ -27,7 +27,7 @@ module.exports = (dataHelpers) => {
         })
         .then(
         (info) => {
-          console.log(info)
+          // console.log(info)
           const optionsArr = Object.values(req.body);
           for (let i = 3; i < optionsArr.length; i++) {
             dataHelpers.saveOptions({
@@ -82,7 +82,7 @@ module.exports = (dataHelpers) => {
 
 
 
-  router.get("/poll/:poll_id", (req, res) => {
+  router.get("/:poll_id", (req, res) => {
     dataHelpers.getResults(
       function (err, result)
       {

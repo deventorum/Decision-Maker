@@ -71,8 +71,9 @@ module.exports = function makeDataHelpers(db) { //db is knex
     },
 
       saveVotes: function(callback) {
-       return db('votes').insert({})
-       .where('id', '=', 1)
+       return db('votes').insert({
+
+       })
        .asCallback(function(err, result) {
           if (err) callback(err);
           callback(null,result);
