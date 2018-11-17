@@ -69,11 +69,11 @@ module.exports = (dataHelpers) => {
 
   router.get("/poll/:poll_id/:voter_token", (req, res) => {
     dataHelpers.getOptions(req.params.poll_id, (err, result) => {
+      let optionsArr = [];
       if (err) {
         //res.render('error');
         return
       } else {
-        let optionsArr = [];
         result.forEach(function (option) {
           optionsArr.push(option.name);
         })
@@ -82,6 +82,9 @@ module.exports = (dataHelpers) => {
           poll_id: req.params.poll_id,
           options: optionsArr
         }
+        console.log(optionsArr);
+        res.render('vote', templateVars);
+      }
     })
   });
 
