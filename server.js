@@ -43,8 +43,6 @@ app.use(express.static("public"));
 
 app.use("/", routes);
 
-
-
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });

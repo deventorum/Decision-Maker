@@ -1,0 +1,15 @@
+header {
+  width: 100vw;
+  padding: 20px;
+  background-color: $pink;
+  h1 {
+    color: $black;
+  }
+  border-top: $border-blue;
+  border-bottom: $border-blue;
+
+  .logo {
+    height: 100px;
+    width: 400px;
+  }
+}

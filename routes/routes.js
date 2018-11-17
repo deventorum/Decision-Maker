@@ -16,7 +16,6 @@ module.exports = (dataHelpers) => {
   router.get("/", (req, res) => {
     res.render("index");
   });
-
   router.post("/polls", (req, res) => {
 
     dataHelpers.saveVoter({
@@ -81,6 +80,7 @@ module.exports = (dataHelpers) => {
     dataHelpers.saveVoter({
         email: req.body.email
       })
+
       .then((info) => { // info 
         // console.log("this is INFO which should be coming from saveVoter (looking for the voter_token ): ", info);
         dataHelpers.getPollInfo(req.params.poll_id, (err, result) => {
@@ -114,6 +114,7 @@ module.exports = (dataHelpers) => {
 
   router.post("/polls", (req, res) => {
 
+
     dataHelpers.saveVoter({
         email: req.body.email
       })
@@ -140,6 +141,21 @@ module.exports = (dataHelpers) => {
       });
   })
 
+  router.get(`/:poll_id/admin/:admin_token`, (req, res) => {
+    dataHelpers.getAdminVoterToken(req.params.admin_token, (err, result) => {
+      if (err) {
+        //res.render('error');
+        return
+      } else {
+        let templateVars = {
+          voter_token: result[0].voter_token,
+          poll_id: req.params.poll_id
+        }
+        res.render("admin", templateVars);
+      }
+    })
+  });
+
   // add polls to the front of the request 
   router.post("/:poll_id/admin/:admin_token", (req, res) => {
     dataHelpers.saveVoter({
@@ -149,18 +165,56 @@ module.exports = (dataHelpers) => {
       .then();
   });
 
+  // add voters to the front of the request
+  router.post("/:poll_id/admin/:admin_token", (req, res) => {
+    dataHelpers.saveVoter({
+        poll_id: req.params.poll_id,
+        email: req.body.email
+      })
+      // add something to this?
+      .then();
+  });
+
   router.get("/poll/:poll_id/:voter_token", (req, res) => {
-    dataHelpers.getOptions(
-      function (err, result) {
-        if (err) {
-          res.status(500).json({
-            error: err.message
-          });
-        } else {
-          res.json(result);
+
+    dataHelpers.getOptions(req.params.poll_id, (err, result) => {
+      let optionsArr = [];
+      if (err) {
+        //res.render('error');
+        return
+      } else {
+        result.forEach(function (option) {
+          optionsArr.push(option.name);
+        })
+        let templateVars = {
+          voter_token: req.params.poll_id,
+          poll_id: req.params.poll_id,
+          options: optionsArr
         }
+        console.log(optionsArr);
+        res.render('vote', templateVars);
       }
-    );
+    })
+  });
+
+  router.post("/poll/:poll_id/:voter_token", (req, res) => {
+    dataHelpers.getOptions(req.params.poll_id, (err, result) => {
+      if (err) {
+        //res.render('error');
+        return
+      } else {
+        let optionsArr = [];
+        result.forEach(function (option) {
+          optionsArr.push(option.name);
+        })
+        return optionsArr;
+      }
+    })
+    .then((optionsArr) => {
+      let rates = req.body.rates;
+      for (let i = 0; i < rates.length; i++)
+        dataHelpers.saveVotes(optionsArr[i], rates[i])
+    })
   });
 
   router.get("/poll/:poll_id/:voter_token", (req, res) => {
@@ -194,19 +248,28 @@ module.exports = (dataHelpers) => {
 
 
 
-  router.get("/poll/:poll_id", (req, res) => {
-    dataHelpers.getResults(
+
+//   router.get("/poll/:poll_id", (req, res) => {
+//     dataHelpers.getResults(
+
+
+  router.get("/:poll_id", (req, res) => {
+    dataHelpers.getResults(req.params.poll_id,
       function (err, result) {
         if (err) {
           res.status(500).json({
             error: err.message
           });
         } else {
-          res.json(result);
+          let templateVars = {
+          voter_token: req.params.poll_id,
+          poll_id: req.params.poll_id,
+          options: optionsArr
+        }
+        res.render("result", templateVars);
         }
       }
     );
   });
-
   return router;
 }
