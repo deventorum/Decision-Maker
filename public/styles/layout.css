@@ -327,13 +327,18 @@ li {
 header {
   width: 100vw;
   padding: 20px;
-  background-color: rgba(242, 116, 107, 0.75);
+  background-color: #f2746b;
   border-top: 2px solid #118c8b;
   border-bottom: 2px solid #118c8b;
 }
 
 header h1 {
   color: #000d29;
+}
+
+header .logo {
+  height: 100px;
+  width: 400px;
 }
 
 main .wrapper {
@@ -349,6 +354,18 @@ main .wrapper {
   background-color: rgba(188, 161, 141, 0.75);
   border-radius: 25px;
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 .main h2 {
@@ -368,7 +385,8 @@ main .wrapper {
   padding: 15px;
   display: inline-block;
   border-radius: 25px;
-  margin-top: 20px;
+  max-height: 50px;
+  margin: 5px;
   font-style: normal;
   font-weight: 400;
   font-family: "Montserrat", sans-serif;
@@ -461,7 +479,7 @@ main .wrapper {
 
 .button-panel {
   min-width: 300px;
-  padding: 0;
+  padding: 20px;
   width: 50%;
   max-width: 600px;
   height: auto;
@@ -483,7 +501,8 @@ main .wrapper {
   padding: 15px;
   display: inline-block;
   border-radius: 25px;
-  margin-top: 20px;
+  max-height: 50px;
+  margin: 5px;
   font-style: normal;
   font-weight: 400;
   font-family: "Montserrat", sans-serif;
@@ -504,7 +523,6 @@ main .wrapper {
   background-color: #118c8b;
   -webkit-transition: all linear 0.5s;
   transition: all linear 0.5s;
-  border: 2px solid #000d29;
 }
 
 .option-list {
@@ -536,5 +554,119 @@ footer {
   padding: 20px;
   border-top: 2px solid #118c8b;
   border-bottom: 2px solid #118c8b;
+}
+
+.friend-invites {
+  min-height: 25vh;
+  padding: 20px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.friend-invites input {
+  min-width: 300px;
+  padding: 0 20px;
+  width: 50%;
+  max-width: 600px;
+  height: 50px;
+  text-align: center;
+  border: 2px solid #118c8b;
+  color: #118c8b;
+}
+
+.friend-invites input:hover {
+  border: 2px solid #000d29;
+}
+
+.friend-invites input::-webkit-input-placeholder {
+  color: #118c8b;
+}
+
+.friend-invites input:-ms-input-placeholder {
+  color: #118c8b;
+}
+
+.friend-invites input::-ms-input-placeholder {
+  color: #118c8b;
+}
+
+.friend-invites input::placeholder {
+  color: #118c8b;
+}
+
+.friend-invites h2 {
+  margin: 20px;
+  color: #118c8b;
+}
+
+.invite-form {
+  min-width: 300px;
+  padding: 0 20px;
+  width: 50%;
+  max-width: 600px;
+  height: auto;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.invites-status {
+  text-align: center;
+}
+
+.invites-status p {
+  padding: 10px;
+  color: #118c8b;
+}
+
+.invites-status h3 {
+  margin-top: 10px;
+  padding: 10px;
+  color: #000d29;
+}
+
+#send-invite {
+  border: none;
+  color: #000d29;
+  background-color: #118c8b;
+  font-size: 1rem;
+  padding: 15px;
+  display: inline-block;
+  border-radius: 25px;
+  max-height: 50px;
+  margin: 5px;
+  font-style: normal;
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  width: 175px;
+  border-radius: 0;
+  border: 2px solid #000d29;
+  height: 50px;
+}
+
+#send-invite:hover {
+  background-color: #f2746b;
+  -webkit-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+  border: 2px solid #000d29;
+  font-weight: 700;
 }
 /*# sourceMappingURL=layout.css.map */

@@ -6,14 +6,26 @@ const router = express.Router();
 // this is where we will use the functions from dsatahelpers based on which route requires them.
 module.exports = (dataHelpers) => {
 
-        router.get("/", (req, res) => {
-          res.render("index");
-        });
+  router.get("/", (req, res) => {
+    res.render("index");
+  });
 
   router.get(`/:poll_id/admin/:admin_token`, (req, res) => {
-    console.log(req.params.poll_id, req.params.admin_token)
-    res.render("admin");
+    console.log(req.params.poll_id, req.params.admin_token);
+    const templateVars = {
+      poll_id: req.params.poll_id,
+      voter_token: 'stergc'
+    }
+    res.render("admin", templateVars);
   });
+
+
+  // For test purpose
+  router.post(`/:poll_id/admin/:admin_token/invite`, (req, res) => {
+    console.log(req.body);
+    res.status(200).json({status:'success'})
+  });
+
 
   router.post("/polls", (req, res) => {
     // console.log(req.body);
