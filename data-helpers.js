@@ -1,6 +1,7 @@
 "use strict";
 
-const md5 = require('md5');
+const uuid = require('uuid/v4')
+
 
 // Defines helper functions for saving and getting tweets, using the database `db`.. (knex)
 module.exports = function makeDataHelpers(db) { //db is knex
@@ -10,7 +11,7 @@ module.exports = function makeDataHelpers(db) { //db is knex
 
     // switch to knex (knex uses promises rather than callbacks)
     savePoll: function (pollInfoObj) {
-      const admin_token = md5(pollInfoObj.email)
+      const admin_token = uuid();
       return db('polls').insert({
           title: pollInfoObj.title,
           description: pollInfoObj.description,
@@ -26,8 +27,6 @@ module.exports = function makeDataHelpers(db) { //db is knex
         }))
     },
 
-
-
     saveOptions: function (pollOptions) {
       return db('options').insert({
           name: pollOptions.name,
@@ -38,7 +37,7 @@ module.exports = function makeDataHelpers(db) { //db is knex
     },
 
     saveVoter: function (voterInfoObj) {
-      const voter_token = md5(voterInfoObj.email)
+      const voter_token = uuid();
       return db('voters').insert({
           voter_token: voter_token,
           email: voterInfoObj.email
@@ -50,7 +49,20 @@ module.exports = function makeDataHelpers(db) { //db is knex
         }))
     },
 
+    getAdminVoterToken: function (adminToken, callback) {
+      db.select('voter_token').from('voters')
+        .join('polls', 'voters.id', '=', 'polls.owner_id')
+        .where('admin_token', '=', adminToken)
+        .limit(1)
+        .asCallback(function (err, result) {
+          if (err) callback(err);
+          callback(null, result);
+        });
+    },
+
+    // ALISA'S WORK  fdshjklfdsajkfhdsdjkafhdsjklahfkdjlsahfjkdahjkfdhajkfhdadjkslhfdjksahfjkdashjkfdhadkls
     //???? test maybe?
+
     getPolls: function (callback) {
       db.select('created_at').from('polls')
         .where('id', '=', 1)

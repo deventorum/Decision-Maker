@@ -1,20 +1,19 @@
-
-exports.up = function(knex, Promise) {
+exports.up = function (knex, Promise) {
   return knex.schema
     .dropTable('users')
     .createTable('polls', function (table) {
       table.increments('id').unsigned().primary();
       table.string('title');
-      table.string ('description');
+      table.string('description');
       table.string('admin_token');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       //table.integer('owner_id').references('id').inTable('voters');
 
-  })
+    })
 
     .createTable('voters', function (table) {
       table.increments('id').unsigned().primary();
-  //    table.integer('poll_id').references('id').inTable('polls');
+      table.integer('poll_id').references('id').inTable('polls');
       table.boolean('has_voted').defaultTo(false);
       table.string('voter_token');
       table.string('email');
@@ -34,7 +33,7 @@ exports.up = function(knex, Promise) {
 
 };
 
-exports.down = function(knex, Promise) {
+exports.down = function (knex, Promise) {
   return knex.schema
     .dropTable('votes')
     .dropTable('options')

@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  
-  <head>
+
+<head>
   <% include partials/_head %>
   <script type="text/javascript" src="/scripts/admin.js"></script>
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <% include partials/_header %>
+  <% include partials/_header %>
 
-    <main>
-      <div class='wrapper'>
-        <div class='main'>
-          <section class='friends-invites'>
-            
-          </section>
-        </div>
+  <main>
+    <div class='wrapper'>
+      <div class='main'>
+        <section class='friends-invites'>
+          <h2>
+            <%= JSON.stringify(voter_token) %>
+          </h2>
+        </section>
       </div>
-    </main>
+    </div>
+  </main>
 
-    <% include partials/_footer %>
-  
+  <% include partials/_footer %>
+
   </footer>
-  </body>
+</body>
+
 </html>

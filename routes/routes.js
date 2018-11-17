@@ -10,22 +10,35 @@ module.exports = (dataHelpers) => {
     res.render("index");
   });
 
-  router.get(`polls/:poll_id/admin/:admin_token`, (req, res) => {
-    // console.log(req.params.poll_id, req.params.admin_token)
-    const templateVars = {
-      poll_id: req.params.poll_id,
-      // use the admin token to look in the database to see if it exists 
-      // what is the owner ID
-      // retreive the voter token for owner ID
-      // CREATE A FUNCTION in the database. 
-      // send back the 
-
-
-    }
-    res.render("admin");
+  router.get(`/:poll_id/admin/:admin_token`, (req, res) => {
+    dataHelpers.getAdminVoterToken(req.params.admin_token, (err, result) => {
+      if (err) {
+        //res.render('error');
+        return
+      } else {
+        let templateVars = {
+          voter_token: result,
+          poll_id: req.params.poll_id
+        }
+        console.log(templateVars)
+        res.render("admin", templateVars);
+      }
+    })
   });
 
 
+  router.post(`/:poll_id/admin/:admin_token/invite`, (req, res) => {
+    // this is the INVITE BUTTON RECEIVER
+    dataHelpers.saveVoter({
+        email: req.body.email
+      })
+      .then()
+    //(req.body.email)
+    // hook up the API here KLF:JA:LAL
+    res.status(200).json({
+      status: 'success'
+    })
+  });
 
   router.post("/polls", (req, res) => {
 
@@ -78,14 +91,6 @@ module.exports = (dataHelpers) => {
       }
     );
   });
-
-
-
-  router.get(`/:poll_id/admin/:admin_token`, (req, res) => {
-    console.log(req.params.poll_id, req.params.admin_token)
-    res.render("admin");
-  });
-
 
   router.get("/poll/:poll_id/:voter_token", (req, res) => {
     res.render("vote");
