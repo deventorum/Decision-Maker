@@ -75,13 +75,14 @@ module.exports = (dataHelpers) => {
     })
   });
 
-
+  // this is the INVITE BUTTON RECEIVER
   router.post(`/:poll_id/admin/:admin_token/invite`, (req, res) => {
-    // this is the INVITE BUTTON RECEIVER
+
     dataHelpers.saveVoter({
         email: req.body.email
       })
-      .then(() => {
+      .then((info) => { // info 
+        // console.log("this is INFO which should be coming from saveVoter (looking for the voter_token ): ", info);
         dataHelpers.getPollInfo(req.params.poll_id, (err, result) => {
           if (err) {
             return console.log('this is the err from routes.getpollInfo: ', err);
@@ -91,18 +92,17 @@ module.exports = (dataHelpers) => {
             let pollDescription = result[0].description;
             //console.log('INFO I NEED FOR EMAIL', creatorsEmail, pollTitle, pollDescription);
             var data = {
-              //  Insert the email creators email in between <>
               from: creatorsEmail,
-              to: req.body.email, // this seems to not be registering.
+              to: req.body.email,
               subject: pollTitle,
-              text: pollDescription
+              text: ` You've been invited to ${creatorsEmail}'s '${pollTitle}' poll. \n \n DESCRIPTION: ` + pollDescription + ` \n \n PLEASE CLICK THIS LINK TO ACCESS THE POLL: ` + `http://localhost:8085/${req.params.poll_id}/${info.voter_token}`
             };
-            console.log('this is my data variable: ', data);
+            // console.log('this is my data variable: ', data);
             mailgun.messages().send(data, function (err, body) {
               if (err) {
                 console.log('this is the err from Mailgun: ', err);
               }
-              console.log(" this is the console.log body from mailgun: ", body);
+              // console.log(" this is the console.log body from mailgun: ", body);
             });
             res.status(200).json({
               status: 'Email Sent!'

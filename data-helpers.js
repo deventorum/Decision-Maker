@@ -44,8 +44,9 @@ module.exports = function makeDataHelpers(db) { //db is knex
         })
         .returning('id')
         .catch(err => console.log(err))
-        .then(ids => ({
-          voter_id: ids[0]
+        .then((id) => ({
+          voter_token: voter_token,
+          voter_id: id[0]
         }))
     },
 
@@ -55,6 +56,7 @@ module.exports = function makeDataHelpers(db) { //db is knex
         .where('admin_token', '=', adminToken)
         .limit(1)
         .asCallback(function (err, result) {
+
           if (err) callback(err);
           callback(null, result);
         });
@@ -67,11 +69,12 @@ module.exports = function makeDataHelpers(db) { //db is knex
         .join('voters', 'polls.owner_id', '=', 'voters.id')
         .where('polls.id', '=', poll_id)
         .asCallback(function (err, result) {
-          console.log('this is the result inside the getPollINfo: ', result) // test line 
+          // console.log('this is the result inside the getPollINfo: ', result)
           if (err) callback(err);
           callback(null, result);
         });
     },
+
 
     // ALISA'S WORK  fdshjklfdsajkfhdsdjkafhdsjklahfkdjlsahfjkdahjkfdhajkfhdadjkslhfdjksahfjkdashjkfdhadkls
     //???? test maybe?
