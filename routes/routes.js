@@ -10,46 +10,88 @@ module.exports = (dataHelpers) => {
     res.render("index");
   });
 
+  router.get(`/:poll_id/admin/:admin_token`, (req, res) => {
+    dataHelpers.getAdminVoterToken(req.params.admin_token, (err, result) => {
+      if (err) {
+        //res.render('error');
+        return
+      } else {
+        let templateVars = {
+          voter_token: result,
+          poll_id: req.params.poll_id
+        }
+        console.log(templateVars)
+        res.render("admin", templateVars);
+      }
+    })
+  });
 
-   router.post("/polls", (req, res) => {
+
+  router.post(`/:poll_id/admin/:admin_token/invite`, (req, res) => {
+    // this is the INVITE BUTTON RECEIVER
+    dataHelpers.saveVoter({
+        email: req.body.email
+      })
+      .then()
+    //(req.body.email)
+    // hook up the API here KLF:JA:LAL
+    res.status(200).json({
+      status: 'success'
+    })
+  });
+
+  router.post("/polls", (req, res) => {
 
     dataHelpers.saveVoter({
         email: req.body.email
       })
       .then((info) => {
-        // console.log("saving poll")
-        // console.log(info)
         dataHelpers.savePoll({
-          title: req.body.title,
-          email: req.body.email,
-          description: req.body.description,
-          owner_id: info.voter_id
-        })
-        .then(
-        (info) => {
-          // console.log(info)
-          const optionsArr = Object.values(req.body);
-          for (let i = 3; i < optionsArr.length; i++) {
-            dataHelpers.saveOptions({
-              poll_id: info.poll_id,
-              name: optionsArr[i]
-            })
-          }
-          return info;
-        }).then((info) => {
-        res.redirect(`/${info.poll_id}/admin/${info.admin_token}`)
-      })
-      })
+            title: req.body.title,
+            email: req.body.email,
+            description: req.body.description,
+            owner_id: info.voter_id
+          })
+          .then(
+            (info) => {
+              const optionsArr = Object.values(req.body);
+              for (let i = 3; i < optionsArr.length; i++) {
+                dataHelpers.saveOptions({
+                  poll_id: info.poll_id,
+                  name: optionsArr[i]
+                })
+              }
+              return info; // what does this info return ?
+            }).then((info) => {
+            res.redirect(`/${info.poll_id}/admin/${info.admin_token}`)
+          })
+      });
+  })
 
+  // add polls to the front of the request
+  router.post("/:poll_id/admin/:admin_token", (req, res) => {
+    dataHelpers.saveVoter({
+        poll_id: req.params.poll_id,
+        email: req.body.email
+
+      })
+      // add something to this?
+      .then();
   });
 
-
-
-  router.get(`/:poll_id/admin/:admin_token`, (req, res) => {
-    console.log(req.params.poll_id, req.params.admin_token)
-    res.render("admin");
+  router.get("/poll/:poll_id/:voter_token", (req, res) => {
+    dataHelpers.getOptions(
+      function (err, result) {
+        if (err) {
+          res.status(500).json({
+            error: err.message
+          });
+        } else {
+          res.json(result);
+        }
+      }
+    );
   });
-
 
   router.get("/poll/:poll_id/:voter_token", (req, res) => {
     res.render("vote");
@@ -66,7 +108,7 @@ module.exports = (dataHelpers) => {
 
   router.post("/poll/:poll_id/:voter_token", (req, res) => {
     dataHelpers.saveVotes({
-        option : rate
+      option: rate
     })
 
     //   function (err, result)
@@ -84,23 +126,17 @@ module.exports = (dataHelpers) => {
 
   router.get("/:poll_id", (req, res) => {
     dataHelpers.getResults(
-      function (err, result)
-      {
+      function (err, result) {
         if (err) {
-          res.status(500).json({ error: err.message });
+          res.status(500).json({
+            error: err.message
+          });
         } else {
           res.json(result);
         }
       }
     );
   });
-
-
-// admin.ejs   /poll/:polld_id/admin/admin_token
-// index.ejs   /poll
-// result.ejs  /poll/:poll_id
-// vote.ejs    /poll/:poll_id/voter_token
-
 
   return router;
 }
