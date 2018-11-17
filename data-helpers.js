@@ -36,6 +36,7 @@ module.exports = function makeDataHelpers(db) { //db is knex
         .then();
     },
 
+
     saveVoter: function (voterInfoObj) {
       const voter_token = uuid();
       return db('voters').insert({
@@ -60,43 +61,40 @@ module.exports = function makeDataHelpers(db) { //db is knex
         });
     },
 
-    // ALISA'S WORK  fdshjklfdsajkfhdsdjkafhdsjklahfkdjlsahfjkdahjkfdhajkfhdadjkslhfdjksahfjkdaashjkfdhadkls
-    //???? test maybe?
-
-    getPolls: function (callback) {
-      db.select('created_at').from('polls')
-        .where('id', '=', 1)
+    getPollInfo: function (poll_id, callback) {
+      db.select('title', 'description', 'voters.email').from('polls')
+        .join('voters', 'polls.owner_id', '=', 'voters.id')
+        .where('polls.id', '=', poll_id)
         .asCallback(function (err, result) {
+          console.log('this is the result inside the getPollINfo: ', result) // test line
           if (err) callback(err);
           callback(null, result);
         });
     },
 
     //the votes page to show options and save votes
-    getOptions: function (callback) {
+    getOptions: function (poll_id, callback) {
       return db.select('name').from('options')
-        .where('poll_id', '=', 1)
+        .where('poll_id', '=', poll_id)
         .asCallback(function (err, result) {
           if (err) callback(err);
           callback(null, result);
         });
     },
 
-    saveVotes: function (callback) {
-      return db('votes').insert({})
-        .where('id', '=', 1)
-        .asCallback(function (err, result) {
-
-          if (err) callback(err);
-          callback(null, result);
-        });
+    saveVotes: function (option_name, rate) {
+      db('votes').insert({
+                          option: db.select('id').from('options').where('options.name', '=', option_name),
+                          rate: rate
+                                })
+      .then();
     },
 
     //for the stats page
-    getResults: function (callback) {
-      db.select('name').from('options')
-        .where('poll_id', '=', 1).join('votes', 'options.id', '=', 'votes.option_id')
-        .select('rate')
+    getResults: function (poll_id, callback) {
+      db.select('name').sum('rate').from('options')
+        .join('votes', 'options.id', '=', 'votes.option_id')
+        .where('poll_id', '=', poll_id)
         .asCallback(function (err, result) {
           if (err) callback(err);
           callback(null, result);
