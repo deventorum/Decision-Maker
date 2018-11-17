@@ -11,6 +11,7 @@ module.exports = (dataHelpers) => {
   });
 
   router.get(`/:poll_id/admin/:admin_token`, (req, res) => {
+
     dataHelpers.getAdminVoterToken(req.params.admin_token, (err, result) => {
       if (err) {
         //res.render('error');
@@ -27,18 +28,6 @@ module.exports = (dataHelpers) => {
   });
 
 
-  router.post(`/:poll_id/admin/:admin_token/invite`, (req, res) => {
-    // this is the INVITE BUTTON RECEIVER
-    dataHelpers.saveVoter({
-        email: req.body.email
-      })
-      .then()
-    //(req.body.email)
-    // hook up the API here KLF:JA:LAL
-    res.status(200).json({
-      status: 'success'
-    })
-  });
 
   router.post("/polls", (req, res) => {
 
@@ -107,7 +96,6 @@ module.exports = (dataHelpers) => {
         res.render("vote", templateVars);
       }
     })
-  });
     res.render("vote");
     //   function (err, result)
     //   {
