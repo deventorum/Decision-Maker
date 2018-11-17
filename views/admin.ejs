@@ -25,8 +25,8 @@
             </div>
           </section>
           <section class='button-panel'>
-            <a href='/<%= poll_id %>' class='option-button'>Check results</a>
-            <a href='/<%= poll_id %>/' class='option-button'>Vote</a>
+            <a href='/poll/<%= poll_id %>' class='option-button'>Check results</a>
+            <a href='/poll/<%= poll_id %>/<%= voter_token %>' class='option-button'>Vote</a>
           </section>
 
         </div>
