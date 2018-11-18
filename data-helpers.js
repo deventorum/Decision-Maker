@@ -74,6 +74,14 @@ module.exports = function makeDataHelpers(db) { //db is knex
         });
     },
 
+      hasVoted: function (voter_token, callback) {
+        return db.select('has_voted').from('voters')
+        .where('voter_token', '=', voter_token)
+        .asCallback(function (err, result) {
+          if (err) callback(err);
+          callback(null, result);
+        });
+      },
 
     //the votes page to show options and save votes
     getOptions: function (poll_id, callback) {
@@ -90,8 +98,13 @@ module.exports = function makeDataHelpers(db) { //db is knex
                           option_id: db.select('id').from('options').where('options.name', '=', option_name).andWhere('poll_id', '=', poll_id),
                           rate: rate
                                 })
-      .then();
+      .then(function () { return db('voters').update({
+                                              has_voted: true
+                                            })
+      })
     },
+
+
 
     //for the stats page
     getResults: function (poll_id, callback) {
