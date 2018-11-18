@@ -85,9 +85,9 @@ module.exports = function makeDataHelpers(db) { //db is knex
         });
     },
 
-    saveVotes: function (option_name, rate) {
+    saveVotes: function (option_name, rate, poll_id) {
       db('votes').insert({
-                          option_id: db.select('id').from('options').where('options.name', '=', option_name),
+                          option_id: db.select('id').from('options').where('options.name', '=', option_name).andWhere('poll_id', '=', poll_id),
                           rate: rate
                                 })
       .then();
@@ -95,8 +95,10 @@ module.exports = function makeDataHelpers(db) { //db is knex
 
     //for the stats page
     getResults: function (poll_id, callback) {
-      db.select('name').from('options')
+      db.select('options.name').sum('votes.rate').from('options')
+        .join('votes', 'options.id', '=', 'votes.option_id')
         .where('poll_id', '=', poll_id)
+        .groupBy('options.name')
         .asCallback(function (err, result) {
           if (err) callback(err);
           callback(null, result);
