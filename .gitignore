@@ -1,4 +1,6 @@
 node_modules/
 .env
+app.env
 *.log
 *.sqlite3
+

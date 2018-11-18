@@ -36,7 +36,6 @@ module.exports = function makeDataHelpers(db) { //db is knex
         .then();
     },
 
-
     saveVoter: function (voterInfoObj) {
       const voter_token = uuid();
       return db('voters').insert({
@@ -45,8 +44,9 @@ module.exports = function makeDataHelpers(db) { //db is knex
         })
         .returning('id')
         .catch(err => console.log(err))
-        .then(ids => ({
-          voter_id: ids[0]
+        .then((id) => ({
+          voter_token: voter_token,
+          voter_id: id[0]
         }))
     },
 
@@ -60,17 +60,20 @@ module.exports = function makeDataHelpers(db) { //db is knex
           callback(null, result);
         });
     },
-
+    // USE THIS STRUCTURE FOR ANYTHING IN THE FUTURE!
+    // USE THIS STRUCTURE FOR ANYTHING IN THE FUTURE!
+    // USE THIS STRUCTURE FOR ANYTHING IN THE FUTURE! (BELOW getPollInfo)
     getPollInfo: function (poll_id, callback) {
       db.select('title', 'description', 'voters.email').from('polls')
         .join('voters', 'polls.owner_id', '=', 'voters.id')
         .where('polls.id', '=', poll_id)
         .asCallback(function (err, result) {
-          console.log('this is the result inside the getPollINfo: ', result) // test line
+          // console.log('this is the result inside the getPollINfo: ', result)
           if (err) callback(err);
           callback(null, result);
         });
     },
+
 
     //the votes page to show options and save votes
     getOptions: function (poll_id, callback) {
