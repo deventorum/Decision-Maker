@@ -23,7 +23,7 @@
 }
 
 @mixin formElement($padding, $height, $align) {
-  min-width: 300px;
+  min-width: 260px;
   padding: $padding;
   width: 50%;
   max-width: 600px;

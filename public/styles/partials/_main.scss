@@ -3,6 +3,9 @@ main .wrapper {
   flex-direction: column;
   padding: 20px;
 }
+audio {
+  margin-top: 20px;
+}
 .main {
   margin-top: 20px;
   background-color: $brown-trans;
@@ -185,6 +188,10 @@ footer {
 #options {
   padding: 10px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 #vote {
   @extend .poll-button;
@@ -195,6 +202,8 @@ footer {
 // RESULT PAGE (START)
 
 .results-board {
+  padding: 20px;
+  text-align: center;
   li {
     display: flex;
     justify-content: space-between;
@@ -205,7 +214,9 @@ footer {
   }
 }
 canvas {
-  width: 500px !important;
-  height: 600px !important;
+  width: 80vw !important;
+  max-width: 1000px;
+  height: 60vh !important;
+  min-height: 400px !important;
 }
 // RESULT PAGE (END)

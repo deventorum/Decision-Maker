@@ -157,12 +157,12 @@ module.exports = (dataHelpers) => {
     })
     .then((optionsArr) => {
       let rates = req.body.rates;
+      console.log("test" , rates);
       for (let i = 0; i < rates.length; i++){
-        //console.log(optionsArr[i].name, rates[i]);
         dataHelpers.saveVotes(optionsArr[i].name, rates[i], req.params.poll_id)
       }
-      res.redirect(`/poll/${req.params.poll_id}`)
     })
+    .then(() => {res.redirect(`/poll/${req.params.poll_id}`)})
   });
 
 
