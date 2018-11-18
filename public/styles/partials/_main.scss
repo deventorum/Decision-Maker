@@ -191,3 +191,21 @@ footer {
 }
 
 // VOTERS PAGE (END)
+
+// RESULT PAGE (START)
+
+.results-board {
+  li {
+    display: flex;
+    justify-content: space-between;
+
+    h3 {
+      margin: 20px;
+    }
+  }
+}
+canvas {
+  width: 500px !important;
+  height: 600px !important;
+}
+// RESULT PAGE (END)
