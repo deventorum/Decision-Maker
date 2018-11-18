@@ -138,14 +138,25 @@ module.exports = (dataHelpers) => {
         return console.log('this is the err from routes.getpollInfo: ', err);
       } else {
         let poll_title = result[0].title;
+        console.log('getPollInfo', result);
+        console.log(1, req.params.voter_token);
+        console.log(2, req.params.voter_token);
+        console.log(3, req.params.voter_token);
+        console.log(4, req.params.voter_token);
+        console.log(req.params.voter_token);
+        console.log(req.params.voter_token);
         dataHelpers.hasVoted(req.params.voter_token, (err, result) => {
           if (err) {
+            console.log('This is the error from hasVoted');
             return
           } else{
+            /* console.log("testing has voted", result); */
+            console.log("testing has voted specific", result[0].has_voted);
             if (result[0].has_voted === false) {
             dataHelpers.getOptions(req.params.poll_id, (err, result) => {
               let optionsArr = [];
               if (err) {
+                console.log('This is the error from getOPTIONS');
                 //res.render('error');
                 return
               } else {
@@ -189,27 +200,7 @@ module.exports = (dataHelpers) => {
         dataHelpers.saveVotes(optionsArr[i].name, rates[i], req.params.poll_id)
       }
     })
-    .then(() => {res.redirect(`/poll/${req.params.poll_id}`)})
-  });
-
-        let optionsArr = [];
-        if (err) {
-          return
-        } else {
-          result.forEach(function (option) {
-            optionsArr.push(option.name);
-          })
-          return optionsArr;
-        }
-      })
-      .then((optionsArr) => {
-        let rates = req.body.rates;
-        for (let i = 0; i < rates.length; i++) {
-          console.log(optionsArr[i].name, rates[i]);
-          dataHelpers.saveVotes(optionsArr[i].name, rates[i], req.params.poll_id)
-        }
-        res.redirect(`/poll/${req.params.poll_id}`)
-      })
+    .all(() => {res.redirect(`/poll/${req.params.poll_id}`)})
   });
 
   router.get("/poll/:poll_id", (req, res) => {
