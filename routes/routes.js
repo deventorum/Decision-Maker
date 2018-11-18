@@ -51,7 +51,7 @@ module.exports = (dataHelpers) => {
         email: req.body.email
       })
 
-      .then((info) => { // info 
+      .then((info) => { // info
         // console.log("this is INFO which should be coming from saveVoter (looking for the voter_token ): ", info);
         dataHelpers.getPollInfo(req.params.poll_id, (err, result) => {
           if (err) {
@@ -82,68 +82,63 @@ module.exports = (dataHelpers) => {
       });
   })
 
-  router.post("/polls", (req, res) => {
-
-
-    dataHelpers.saveVoter({
-        email: req.body.email
-      })
-      .then((info) => {
-        dataHelpers.savePoll({
-            title: req.body.title,
-            email: req.body.email,
-            description: req.body.description,
-            owner_id: info.voter_id
-          })
-          .then(
-            (info) => {
-              const optionsArr = Object.values(req.body);
-              for (let i = 3; i < optionsArr.length; i++) {
-                dataHelpers.saveOptions({
-                  poll_id: info.poll_id,
-                  name: optionsArr[i]
-                })
-              }
-              return info; // what does this info return ?
-            }).then((info) => {
-            res.redirect(`/${info.poll_id}/admin/${info.admin_token}`)
-          })
-      });
-  })
-
   router.get(`/:poll_id/admin/:admin_token`, (req, res) => {
-    dataHelpers.getAdminVoterToken(req.params.admin_token, (err, result) => {
+    dataHelpers.getPollInfo(req.params.poll_id, (err, result) => {
       if (err) {
-        //res.render('error');
-        return
+        return console.log('this is the err from routes.getpollInfo: ', err);
       } else {
-        let templateVars = {
-          voter_token: result[0].voter_token,
-          poll_id: req.params.poll_id
-        }
-        res.render("admin", templateVars);
+        let poll_title = result[0].title;
+        dataHelpers.getAdminVoterToken(req.params.admin_token, (err, result) => {
+          if (err) {
+            //res.render('error');
+            return
+          } else {
+            let templateVars = {
+              voter_token: result[0].voter_token,
+              poll_id: req.params.poll_id,
+              title: poll_title
+            }
+            res.render("admin", templateVars);
+          }
+        })
       }
     })
   });
 
   router.get("/poll/:poll_id/:voter_token", (req, res) => {
-
-    dataHelpers.getOptions(req.params.poll_id, (err, result) => {
-      let optionsArr = [];
+    dataHelpers.getPollInfo(req.params.poll_id, (err, result) => {
       if (err) {
-        //res.render('error');
-        return
+        return console.log('this is the err from routes.getpollInfo: ', err);
       } else {
-        result.forEach(function (option) {
-          optionsArr.push(option.name);
+        let poll_title = result[0].title;
+        dataHelpers.hasVoted(req.params.voter_token, (err, result) => {
+          if (err) {
+            return
+          } else{
+            if (result[0].has_voted === false) {
+            dataHelpers.getOptions(req.params.poll_id, (err, result) => {
+              let optionsArr = [];
+              if (err) {
+                //res.render('error');
+                return
+              } else {
+                result.forEach(function (option) {
+                  optionsArr.push(option.name);
+                })
+                let templateVars = {
+                  voter_token: req.params.poll_id,
+                  poll_id: req.params.poll_id,
+                  options: optionsArr,
+                  title: poll_title
+                }
+                res.render("vote", templateVars);
+              }
+            })
+            } else {
+              res.redirect(`/poll/${req.params.poll_id}`);
+            }
+          }
         })
-        let templateVars = {
-          voter_token: req.params.poll_id,
-          poll_id: req.params.poll_id,
-          options: optionsArr
-        }
-        console.log(optionsArr);
-        res.render('vote', templateVars);
       }
     })
   });
@@ -170,60 +165,38 @@ module.exports = (dataHelpers) => {
     .then(() => {res.redirect(`/poll/${req.params.poll_id}`)})
   });
 
-//   router.get("/poll/:poll_id", (req, res) => {
-//     dataHelpers.getResults(
-
-
-  
-  // CREATED TO TEST RESULT PAGE (DENIS) START
-  
-  /* router.get("/poll/:poll_id", (req, res) => {
-    let templateVars = {
-      options:[{
-        name: 'OMG!!!!!',
-        result: 25
-      },
-      {
-        name: 'Oh Poll Daddy!!!',
-        result: 23
-      },
-      {
-        name: 'Oh terrific!',
-        result: 12
-      },
-      {
-        name: 'Poll Daddy?! What kind of name is that???',
-        result: 32
-      }]
-    }
-    res.render("result", templateVars);
-  }); */
 
   router.get("/poll/:poll_id", (req, res) => {
-    dataHelpers.getResults(req.params.poll_id,
-      function (err, result) {
-        let optionsArr = [];
-        if (err) {
-          res.status(500).json({
+    dataHelpers.getPollInfo(req.params.poll_id, (err, result) => {
+      if (err) {
+        return console.log('this is the err from routes.getpollInfo: ', err);
+      } else {
+        let poll_title = result[0].title;
+        //console.log("help", poll_title);
+        dataHelpers.getResults(req.params.poll_id, (err, result) => {
+          let optionsArr = [];
+          if (err) {
+            res.status(500).json({
             error: err.message
-          });
-        } else {
-          result.forEach(function (option_rate) {
-            optionsArr.push({
-              name: option_rate.name,
-              result: option_rate.sum
             });
-          })
-          let templateVars = {
-          options: optionsArr
+          } else {
+            result.forEach(function (option_rate) {
+              optionsArr.push({
+                name: option_rate.name,
+                result: option_rate.sum
+              });
+            })
+            let templateVars = {
+            options: optionsArr,
+            title: poll_title
+            }
+          //console.log("for d", templateVars);
+          res.render("result", templateVars);
           }
-        res.render("result", templateVars);
-        }
+        })
       }
-    );
+    })
   });
 
-
-  // CREATED TO TEST RESULT PAGE (DENIS) END
   return router;
 }
