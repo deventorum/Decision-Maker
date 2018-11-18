@@ -11,7 +11,7 @@ exports.up = function(knex, Promise) {
   })
 
   .table('voters', function (table) {
-     table.dropColumn('poll_id');
+    table.dropColumn('poll_id');
   })
 };
 
