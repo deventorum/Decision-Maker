@@ -288,6 +288,7 @@ p {
 h2 {
   margin: 20px;
   color: #118c8b;
+  text-align: center;
 }
 
 img {
@@ -383,6 +384,12 @@ audio {
 
 .main h2 {
   color: #000d29;
+}
+
+.poll-title {
+  text-align: center;
+  padding: 10px;
+  color: #118c8b;
 }
 
 .new-poll {
