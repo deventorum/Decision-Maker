@@ -51,7 +51,7 @@ module.exports = (dataHelpers) => {
         email: req.body.email
       })
 
-      .then((info) => { // info 
+      .then((info) => { // info
         // console.log("this is INFO which should be coming from saveVoter (looking for the voter_token ): ", info);
         dataHelpers.getPollInfo(req.params.poll_id, (err, result) => {
           if (err) {
