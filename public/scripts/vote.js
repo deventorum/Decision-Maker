@@ -29,6 +29,8 @@ $(document).ready(function () {
         console.log('Rates:', rates);
       }
   });
+
+
   // Sends an array of rates and redirects to another page
   $('#vote').on('click', function() {
     $.post(voteURL, {rates: rates}).done(

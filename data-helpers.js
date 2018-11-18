@@ -74,14 +74,14 @@ module.exports = function makeDataHelpers(db) { //db is knex
         });
     },
 
-      hasVoted: function (voter_token, callback) {
-        return db.select('has_voted').from('voters')
-        .where('voter_token', '=', voter_token)
-        .asCallback(function (err, result) {
-          if (err) callback(err);
-          callback(null, result);
-        });
-      },
+    hasVoted: function (voter_token, callback) {
+      return db.select('has_voted').from('voters')
+      .where('voter_token', '=', voter_token)
+      .asCallback(function (err, result) {
+        if (err) callback(err);
+        callback(null, result);
+      });
+    },
 
     //the votes page to show options and save votes
     getOptions: function (poll_id, callback) {

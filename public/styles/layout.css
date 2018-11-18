@@ -358,6 +358,10 @@ main .wrapper {
   padding: 20px;
 }
 
+audio {
+  margin-top: 20px;
+}
+
 .main {
   margin-top: 20px;
   background-color: rgba(188, 161, 141, 0.75);
@@ -426,7 +430,7 @@ main .wrapper {
 }
 
 .create-poll input {
-  min-width: 300px;
+  min-width: 260px;
   padding: 0 20px;
   width: 50%;
   max-width: 600px;
@@ -457,7 +461,7 @@ main .wrapper {
 }
 
 .create-poll textarea {
-  min-width: 300px;
+  min-width: 260px;
   padding: 0 20px;
   width: 50%;
   max-width: 600px;
@@ -487,7 +491,7 @@ main .wrapper {
 }
 
 .button-panel {
-  min-width: 300px;
+  min-width: 260px;
   padding: 20px;
   width: 50%;
   max-width: 600px;
@@ -535,7 +539,7 @@ main .wrapper {
 }
 
 .option-list {
-  min-width: 300px;
+  min-width: 260px;
   padding: 0;
   width: 50%;
   max-width: 600px;
@@ -584,7 +588,7 @@ footer {
 }
 
 .friend-invites input {
-  min-width: 300px;
+  min-width: 260px;
   padding: 0 20px;
   width: 50%;
   max-width: 600px;
@@ -615,7 +619,7 @@ footer {
 }
 
 .invite-form {
-  min-width: 300px;
+  min-width: 260px;
   padding: 0 20px;
   width: 50%;
   max-width: 600px;
@@ -679,7 +683,7 @@ footer {
 }
 
 .sortable {
-  min-width: 300px;
+  min-width: 260px;
   padding: 0;
   width: 50%;
   max-width: 600px;
@@ -726,6 +730,24 @@ footer {
 #options {
   padding: 10px;
   text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.results-board {
+  padding: 20px;
+  text-align: center;
 }
 
 .results-board li {
@@ -742,7 +764,9 @@ footer {
 }
 
 canvas {
-  width: 500px !important;
-  height: 600px !important;
+  width: 80vw !important;
+  max-width: 1000px;
+  height: 60vh !important;
+  min-height: 400px !important;
 }
 /*# sourceMappingURL=layout.css.map */
