@@ -358,6 +358,10 @@ main .wrapper {
   padding: 20px;
 }
 
+audio {
+  margin-top: 20px;
+}
+
 .main {
   margin-top: 20px;
   background-color: rgba(188, 161, 141, 0.75);
@@ -728,6 +732,11 @@ footer {
   text-align: center;
 }
 
+.results-board {
+  padding: 20px;
+  text-align: center;
+}
+
 .results-board li {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -742,7 +751,8 @@ footer {
 }
 
 canvas {
-  width: 500px !important;
-  height: 600px !important;
+  width: 80vw !important;
+  height: 60vh !important;
+  min-height: 400px !important;
 }
 /*# sourceMappingURL=layout.css.map */
