@@ -172,6 +172,25 @@ module.exports = (dataHelpers) => {
 
   router.post("/poll/:poll_id/:voter_token/vote", (req, res) => {
     dataHelpers.getOptions(req.params.poll_id, (err, result) => {
+      let optionsArr = [];
+      if (err) {
+        return
+      } else {
+        result.forEach(function (option) {
+          optionsArr.push(option.name);
+        })
+        return optionsArr;
+      }
+    })
+    .then((optionsArr) => {
+      let rates = req.body.rates;
+      console.log("test" , rates);
+      for (let i = 0; i < rates.length; i++){
+        dataHelpers.saveVotes(optionsArr[i].name, rates[i], req.params.poll_id)
+      }
+    })
+    .then(() => {res.redirect(`/poll/${req.params.poll_id}`)})
+  });
 
         let optionsArr = [];
         if (err) {
