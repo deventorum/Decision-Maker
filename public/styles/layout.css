@@ -727,4 +727,17 @@ footer {
   padding: 10px;
   text-align: center;
 }
+
+.results-board li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.results-board li h3 {
+  margin: 20px;
+}
 /*# sourceMappingURL=layout.css.map */

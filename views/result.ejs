@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <% include partials/_head %>
+  <script type='text/javascript' src='/scripts/result.js'></script>
+  </head>
+
+  <body>
+
+    <% include partials/_header %>
+
+    <main>
+      <div class='wrapper'>
+        <div class='main'>
+          <h2>Current results</h2>
+          <nav class='results-board'>
+            <ul>
+              <% options.forEach( item => { %>
+              <li>
+                <h3><%= item.name %></h3>
+                <h3><%= item.result %></h3>
+              </li>
+              <% }) %>
+            </ul>
+          </nav>
+          <a href='/' class='option-button'>Create new poll</a>
+        </div>
+      </div>
+    </main>
+
+    <% include partials/_footer %>
+  
+  </footer>
+  </body>
+</html>

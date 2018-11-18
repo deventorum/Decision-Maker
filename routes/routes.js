@@ -148,13 +148,12 @@ module.exports = (dataHelpers) => {
     })
   });
 
-  router.post("/poll/:poll_id/:voter_token", (req, res) => {
+  router.post("/poll/:poll_id/:voter_token/vote", (req, res) => {
     dataHelpers.getOptions(req.params.poll_id, (err, result) => {
+      let optionsArr = [];
       if (err) {
-        //res.render('error');
         return
       } else {
-        let optionsArr = [];
         result.forEach(function (option) {
           optionsArr.push(option.name);
         })
@@ -163,8 +162,11 @@ module.exports = (dataHelpers) => {
     })
     .then((optionsArr) => {
       let rates = req.body.rates;
-      for (let i = 0; i < rates.length; i++)
-        dataHelpers.saveVotes(optionsArr[i], rates[i])
+      for (let i = 0; i < rates.length; i++){
+        console.log(optionsArr[i].name, rates[i]);
+        dataHelpers.saveVotes(optionsArr[i].name, rates[i], req.params.poll_id)
+      }
+      res.redirect(`/poll/${req.params.poll_id}`)
     })
   });
 
@@ -172,23 +174,32 @@ module.exports = (dataHelpers) => {
 //     dataHelpers.getResults(
 
 
-  router.get("/:poll_id", (req, res) => {
-    dataHelpers.getResults(req.params.poll_id,
-      function (err, result) {
-        if (err) {
-          res.status(500).json({
-            error: err.message
-          });
-        } else {
-          let templateVars = {
-          voter_token: req.params.poll_id,
-          poll_id: req.params.poll_id,
-          options: optionsArr
-        }
-        res.render("result", templateVars);
-        }
-      }
-    );
+  
+  // CREATED TO TEST RESULT PAGE (DENIS) START
+  
+  router.get("/poll/:poll_id", (req, res) => {
+    let templateVars = {
+      options:[{
+        name: 'OMG!!!!!',
+        result: 25
+      },
+      {
+        name: 'Oh Poll Daddy!!!',
+        result: 23
+      },
+      {
+        name: 'Oh terrific!',
+        result: 12
+      },
+      {
+        name: 'Poll Daddy?! What kind of name is that???',
+        result: 32
+      }]
+    }
+    res.render("result", templateVars);
   });
+
+
+  // CREATED TO TEST RESULT PAGE (DENIS) END
   return router;
 }

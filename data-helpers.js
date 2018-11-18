@@ -85,11 +85,11 @@ module.exports = function makeDataHelpers(db) { //db is knex
         });
     },
 
-    saveVotes: function (option_name, rate) {
+    saveVotes: function (option_name, rate, poll_id) {
       db('votes').insert({
-                          option: db.select('id').from('options').where('options.name', '=', option_name),
-                          rate: rate
-                                })
+        option_id: db.select('id').from('options').where('options.name', '=', option_name).andWhere('poll_id', '=', poll_id),
+        rate: rate
+      })
       .then();
     },
 
