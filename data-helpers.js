@@ -87,7 +87,7 @@ module.exports = function makeDataHelpers(db) { //db is knex
 
     saveVotes: function (option_name, rate) {
       db('votes').insert({
-                          option: db.select('id').from('options').where('options.name', '=', option_name),
+                          option_id: db.select('id').from('options').where('options.name', '=', option_name),
                           rate: rate
                                 })
       .then();
@@ -95,8 +95,7 @@ module.exports = function makeDataHelpers(db) { //db is knex
 
     //for the stats page
     getResults: function (poll_id, callback) {
-      db.select('name').sum('rate').from('options')
-        .join('votes', 'options.id', '=', 'votes.option_id')
+      db.select('name').from('options')
         .where('poll_id', '=', poll_id)
         .asCallback(function (err, result) {
           if (err) callback(err);

@@ -11,7 +11,7 @@ exports.up = function(knex, Promise) {
   })
 
   .table('voters', function (table) {
-     table.dropColumn('poll_id');
+    table.dropColumn('poll_id');
   })
 };
 
@@ -22,8 +22,8 @@ exports.down = function(knex, Promise) {
      table.dropColumn('owner_id');
   })
 
-  .table('polls', function(table) {
-    table.integer('poll_id').references('id').inTable('voters');
+  .table('voters', function(table) {
+    table.integer('poll_id').references('id').inTable('polls');
   })
 
 };
