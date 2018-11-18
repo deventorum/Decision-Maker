@@ -116,8 +116,7 @@ module.exports = function makeDataHelpers(db) { //db is knex
           if (err) callback(err);
           callback(null, result);
         });
-
-    }
+      }
   }
 
 }
