@@ -740,4 +740,9 @@ footer {
 .results-board li h3 {
   margin: 20px;
 }
+
+canvas {
+  width: 500px !important;
+  height: 600px !important;
+}
 /*# sourceMappingURL=layout.css.map */

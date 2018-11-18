@@ -177,7 +177,7 @@ module.exports = (dataHelpers) => {
   
   // CREATED TO TEST RESULT PAGE (DENIS) START
   
-  router.get("/poll/:poll_id", (req, res) => {
+  /* router.get("/poll/:poll_id", (req, res) => {
     let templateVars = {
       options:[{
         name: 'OMG!!!!!',
@@ -197,6 +197,30 @@ module.exports = (dataHelpers) => {
       }]
     }
     res.render("result", templateVars);
+  }); */
+
+  router.get("/poll/:poll_id", (req, res) => {
+    dataHelpers.getResults(req.params.poll_id,
+      function (err, result) {
+        let optionsArr = [];
+        if (err) {
+          res.status(500).json({
+            error: err.message
+          });
+        } else {
+          result.forEach(function (option_rate) {
+            optionsArr.push({
+              name: option_rate.name,
+              result: option_rate.sum
+            });
+          })
+          let templateVars = {
+          options: optionsArr
+          }
+        res.render("result", templateVars);
+        }
+      }
+    );
   });
 
 

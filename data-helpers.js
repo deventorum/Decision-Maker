@@ -95,15 +95,15 @@ module.exports = function makeDataHelpers(db) { //db is knex
 
     //for the stats page
     getResults: function (poll_id, callback) {
-      db.select('name').sum('rate').from('options')
+      db.select('options.name').sum('votes.rate').from('options')
         .join('votes', 'options.id', '=', 'votes.option_id')
         .where('poll_id', '=', poll_id)
+        .groupBy('options.name')
         .asCallback(function (err, result) {
           if (err) callback(err);
           callback(null, result);
         });
-
-    }
+      }
   }
 
 }

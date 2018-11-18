@@ -4,6 +4,7 @@
   <head>
   <% include partials/_head %>
   <script type='text/javascript' src='/scripts/result.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
   </head>
 
   <body>
@@ -24,6 +25,42 @@
               <% }) %>
             </ul>
           </nav>
+          <canvas id="myChart" width="400" height="400"></canvas>
+          <script>
+          var ctx = document.getElementById("myChart").getContext("2d");
+          ar ctxx = document.getElementById("myChart");
+          ctxx.height = 80;
+          var myChart = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                  labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                  datasets: [{
+                      label: 'Rating',
+                      data: [12, 19, 3, 5, 2, 3],
+                      backgroundColor: [
+                          'rgba(242, 116, 107, 0.75)',
+                          'rgba(17, 140, 139, 0.75)',
+                          'rgba(242, 116, 107, 0.75)',
+                          'rgba(17, 140, 139, 0.75)',
+                          'rgba(242, 116, 107, 0.75)',
+                          'rgba(17, 140, 139, 0.75)'
+                      ],
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                  scales: {
+                      yAxes: [{
+                          ticks: {
+                              beginAtZero:true
+                          }
+                      }]
+                  }
+              }
+          });
+          </script>
           <a href='/' class='option-button'>Create new poll</a>
         </div>
       </div>
