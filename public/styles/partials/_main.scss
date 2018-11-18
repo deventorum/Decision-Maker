@@ -188,6 +188,10 @@ footer {
 #options {
   padding: 10px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 #vote {
   @extend .poll-button;
@@ -211,6 +215,7 @@ footer {
 }
 canvas {
   width: 80vw !important;
+  max-width: 1000px;
   height: 60vh !important;
   min-height: 400px !important;
 }
