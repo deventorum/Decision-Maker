@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-  
-  <head>
+
+<head>
   <% include partials/_head %>
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
   <script type='text/javascript' src='/scripts/vote.js'></script>
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <% include partials/_header %>
-
+  <% include partials/_header %>
     <main>
       <div class='wrapper'>
         <div class='main'>
@@ -26,13 +25,16 @@
               <% }) %>
             </ol> 
           <button id='vote'>Submit</button>
-          </nav>
-        </div>
+        </nav>
       </div>
-    </main>
+      <iframe src="/music/votersPollDaddy.m4a" allow="autoplay" style="display:none" id="iframeAudio">
+      </iframe>
+    </div>
+  </main>
 
-    <% include partials/_footer %>
-  
+  <% include partials/_footer %>
+
   </footer>
-  </body>
+</body>
+
 </html>
