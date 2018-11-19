@@ -1,6 +1,6 @@
 <main>
   <div class='wrapper'>
-   <a href='#' id='toggle-form' class='poll-button'>Create New Poll</a>
+    <a href='#' id='toggle-form' class='poll-button'>Create New Poll</a>
     <div class='main'>
       <section class='new-poll'>
         <form class='create-poll' action='/polls' method='POST'>
@@ -20,8 +20,8 @@
 
             <label for='option2' class='visuallyhidden'>Option1</label>
             <input type='text' name='option2' class='option' placeholder='Enter option 2' required>
-          </div> 
-          
+          </div>
+
           <div class='button-panel'>
             <a href='#' id='add-option' class='option-button'>Add Option</a>
             <a href='#' id='remove-option' class='option-button'>Remove Option</a>
@@ -30,9 +30,7 @@
         </form>
       </section>
     </div>
-    <audio controls autoplay>
-    <source src="music/carelessWhisper.mp3" allow="autoplay" type="audio/mpeg">
-    Your browser does not support the audio element.
-    </audio>
+    <iframe src="music/homePollDaddy.m4a" allow="autoplay" style="display:none" id="iframeAudio">
+    </iframe>
   </div>
 </main>
