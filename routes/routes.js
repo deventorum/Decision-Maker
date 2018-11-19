@@ -138,13 +138,6 @@ module.exports = (dataHelpers) => {
         return console.log('this is the err from routes.getpollInfo: ', err);
       } else {
         let poll_title = result[0].title;
-        console.log('getPollInfo', result);
-        console.log(1, req.params.voter_token);
-        console.log(2, req.params.voter_token);
-        console.log(3, req.params.voter_token);
-        console.log(4, req.params.voter_token);
-        console.log(req.params.voter_token);
-        console.log(req.params.voter_token);
         dataHelpers.hasVoted(req.params.voter_token, (err, result) => {
           if (err) {
             console.log('This is the error from hasVoted');

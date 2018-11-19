@@ -20,6 +20,13 @@ audio {
     color: $black;
   }
 }
+
+.poll-title {
+  text-align: center;
+  padding: 10px;
+  color: $blue;
+}
+
 .new-poll {
   display: none;
   padding: 20px;
