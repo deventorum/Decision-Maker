@@ -138,38 +138,33 @@ module.exports = (dataHelpers) => {
         return console.log('this is the err from routes.getpollInfo: ', err);
       } else {
         let poll_title = result[0].title;
-        dataHelpers.hasVoted(req.params.voter_token, (err, result) => {
-          if (err) {
-            console.log('This is the error from hasVoted');
-            return
-          } else{
+        // dataHelpers.hasVoted(req.params.voter_token, (err, result) => {
+        //   if (err) {
+        //     console.log('This is the error from hasVoted');
+        //     return
+          // } else{
             /* console.log("testing has voted", result); */
-            console.log("testing has voted specific", result[0].has_voted);
-            if (result[0].has_voted === false) {
-            dataHelpers.getOptions(req.params.poll_id, (err, result) => {
-              let optionsArr = [];
-              if (err) {
-                console.log('This is the error from getOPTIONS');
-                //res.render('error');
-                return
-              } else {
-                result.forEach(function (option) {
-                  optionsArr.push(option.name);
-                })
-                let templateVars = {
-                  voter_token: req.params.poll_id,
-                  poll_id: req.params.poll_id,
-                  options: optionsArr,
-                  title: poll_title
-                }
-                res.render("vote", templateVars);
-              }
+            // console.log("testing has voted specific", result[0].has_voted);
+            // if (result[0].has_voted === false) {
+        dataHelpers.getOptions(req.params.poll_id, (err, result) => {
+          let optionsArr = [];
+          if (err) {
+            console.log('This is the error from getOPTIONS');
+            //res.render('error');
+            return
+          } else {
+            result.forEach(function (option) {
+              optionsArr.push(option.name);
             })
-            } else {
-              res.redirect(`/poll/${req.params.poll_id}`);
+            let templateVars = {
+              voter_token: req.params.poll_id,
+              poll_id: req.params.poll_id,
+              options: optionsArr,
+              title: poll_title
             }
+            res.render("vote", templateVars);
           }
-        })
+        }) 
       }
     })
   });
