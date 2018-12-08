@@ -19,6 +19,13 @@ A web app that helps groups of friends to vote on a preferred choice (using rank
 7. Run the server: `npm run local`
 8. Visit `http://localhost:8080/`
 
+### Final Product
+
+![Screenshot of the landing page ](https://github.com/deventorum/Decision-Maker/blob/master/docs/Landing-Page.png)
+![Screenshot of the admin page ](https://github.com/deventorum/Decision-Maker/blob/master/docs/Admin-Page.png)
+![Screenshot of the voter page ](https://github.com/deventorum/Decision-Maker/blob/master/docs/Voter-Page.png)
+![Screenshot of the result page ](https://github.com/deventorum/Decision-Maker/blob/master/docs/Result-Page.png)
+
 ## Dependencies
 
 - Node 5.10.x or above
