@@ -1,6 +1,6 @@
 # Decision Maker
 
-A web app that helps groups of friends to vote on a preferred choice (using ranked voting), for example: "What movie should we see next Friday?".
+A web app that helps groups of friends to vote on a preferred choice (using ranked voting), for example: "What movie should we see next Friday?". MailGun is used to send voters links to friends and a link to the admin page for the creator of the poll. jQuery Sortable is used to rank the options (drag and drop). The results of the poll is displayed as a bar chart (Chart.js library used). No web templates used, built with CSS flexbox, responsive design.
 
 ## Getting Started
 
